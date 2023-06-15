@@ -20,7 +20,10 @@ public class Main {
         String patternTo = "," ;
         String[] parts = lesson.splitString(str2, patternTo);
         for (String part : parts) {
-            System.out.println(part);
+           // System.out.println(part);
         }
+
+        List<String> str3 = lesson.fromArrayToString(parts);
+        System.out.println(str3);
     }
 }

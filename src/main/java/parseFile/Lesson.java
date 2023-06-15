@@ -37,7 +37,7 @@ public class Lesson {
         return splitedString;
     }
 
-    public List<String> fromArrayToString (String[]splitedString){ //на вход придет массив строк, который получили в прежнем методе, и из этот массив нужно превратить в лист сторок
+    public List<String> fromArrayToString (String[] splitedString){ //на вход придет массив строк, который получили в прежнем методе, и из этот массив нужно превратить в лист сторок
         List<String> listFromArray = new ArrayList<>();
         for (String str : splitedString) {
             listFromArray.add(str);
