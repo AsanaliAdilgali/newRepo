@@ -1,6 +1,9 @@
 package parseFile;
+
 import java.io.IOException;
 import java.security.acl.AclNotFoundException;
+import java.util.List;
+
 
 public class Main {
 
@@ -14,6 +17,10 @@ public class Main {
         String str2 = lesson.cleanString(str, garbage);
         //System.out.println(str2);
 
-
+        String patternTo = "," ;
+        String[] parts = lesson.splitString(str2, patternTo);
+        for (String part : parts) {
+            System.out.println(part);
+        }
     }
 }
