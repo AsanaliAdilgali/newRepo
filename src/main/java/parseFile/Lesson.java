@@ -1,21 +1,12 @@
 package parseFile;
-
-import jdk.nashorn.internal.objects.NativeJSON;
-import jdk.nashorn.internal.parser.JSONParser;
-import sun.security.util.Length;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 public class Lesson {
-    public String parseFile(String pathToFile) throws IOException { //на вход задается один параметр в виде строки, и это путь к файлу на компе
+    public String parseFile(String pathToFile) throws IOException {
         FileReader input = new FileReader(pathToFile);
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(input)) {
@@ -30,67 +21,23 @@ public class Lesson {
         }
     }
 
-    public String cleanString(String dirtyString, String anyGarbage) { //на вход задается 1-ый параметр String (например строка распарсенная из файла) и 2-ой параметр символ от которого нужно почистить эту строку (например символ ")
+    public String cleanString(String dirtyString, String anyGarbage) {
         String cleanString = null;
         cleanString = dirtyString.replaceAll("\"", "");
         return cleanString;
 
     }
-
-    public String[] splitString(String strForSplit, String patternToSplit) { //на вход задается 1-ый параметр String (например почищенная строка) и 2-ой параметр это Pattern по которому будет делиться строка
+    public String[] splitString(String strForSplit, String patternToSplit) {
         String[] splitedString = strForSplit.split(patternToSplit);
         return splitedString;
     }
 
-    public List<String> fromArrayToString(String[] splitedString) { //на вход придет массив строк, который получили в прежнем методе, и из этот массив нужно превратить в лист сторок
+    public List<String> fromArrayToString(String[] splitedString) {
         List<String> listFromArray = new ArrayList<>();
         for (String str : splitedString) {
             listFromArray.add(str);
         }
         return listFromArray;
-    }
-
-    public List<String> fromStringToJson(List<String> strings) {
-        String jsonString = null;
-        int counter = 0;
-        for (int i = 0; i < strings.size(); i++) {
-
-            counter++;
-
-            if (counter == 1) {
-                strings.set(i, "number : " + strings.get(i));
-            }
-
-            if (counter == 2) {
-                strings.set(i, "id : " + strings.get(i));
-            }
-            if (counter == 3) {
-                strings.set(i, "repCode : " + strings.get(i));
-            }
-
-            if (counter == 4) {
-                strings.set(i, "repName : " + strings.get(i));
-            }
-            if (counter == 5) {
-                strings.set(i, "repType : " + strings.get(i));
-            }
-            if (counter == 6) {
-                strings.set(i, "repFileName : " + strings.get(i));
-            }
-            if (counter == 7) {
-                strings.set(i, "repFileType : " + strings.get(i));
-            }
-            if (counter == 8) {
-                strings.set(i, "update : " + strings.get(i));
-                counter++;
-
-                break;
-            }
-            continue;
-
-        }
-        return strings;
-
     }
 
     public String fromStringToJson2(List<String> strings) {
@@ -122,5 +69,3 @@ public class Lesson {
 }
 
 
-//До: 0,361,REP_TEST,Тестовый отчет,JASPER,REP_TEST.jrxml,application/octet-stream,11.01.2015 22:02:11,
-//После:{"number": "0","id": "361","repCode": "REP_TEST","repName": "Тестовый отчет","repType": "JASPER","repFileNa
