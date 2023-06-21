@@ -1,7 +1,6 @@
 package parseFile;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class Lesson {
         return cleanString;
 
     }
+
     public String[] splitString(String strForSplit, String patternToSplit) {
         String[] splitedString = strForSplit.split(patternToSplit);
         return splitedString;
@@ -58,7 +58,7 @@ public class Lesson {
             } else if (strings.get(i).matches("[a-zA-Zа-яёА-ЯЁ\\s\\d№()-]{9,}")) {
                 stringBuilder.append("\"repName\": \"" + strings.get(i) + "\", ");
             } else if (strings.get(i).matches("[a-z/.-]{15,}")) {
-               stringBuilder.append("\"rep_file_type\": \""  + strings.get(i) + "\", ");
+                stringBuilder.append("\"rep_file_type\": \"" + strings.get(i) + "\", ");
             } else if (strings.get(i).matches("[\\d\\s:. ]{19,}")) {
                 stringBuilder.append("\"date\": \"" + strings.get(i) + "\"},");
             }
@@ -66,6 +66,31 @@ public class Lesson {
         stringBuilder.append("]}");
         return stringBuilder.toString();
     }
-}
 
+    public FileWriter write(String filePath, String data) throws IOException {
+
+        File file = new File(filePath);
+        file.createNewFile();
+
+        FileWriter writer = new FileWriter(file);
+        writer.write(data);
+        writer.flush();
+        writer.close();
+
+//        FileReader fr = new FileReader(file);
+//        char[] a = new char[1000];
+//        fr.read(a);
+//
+//        for (char c : a)
+//            System.out.println(c);
+//        fr.close();
+        return writer;
+    }
+
+    }
+
+    //Создание метода
+    //1. идентификатор доступа public private protected
+    //2. что возвращает 1) ничего то есть void 2) объект либо примитив (например String)
+    //3. название метода с маленькой буквы
 
