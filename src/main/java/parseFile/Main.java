@@ -15,9 +15,6 @@ import java.util.List;
 
 public class Main extends DatabaseHandler {
 
-
-
-
     public static void main(String[] args) throws IOException {
         String fileWithData = "C:\\Users\\w2\\Downloads\\text_for_parse.txt";
         String jsonFile = "C:\\Users\\w2\\Downloads\\dataFromFile2.json";
@@ -27,24 +24,17 @@ public class Main extends DatabaseHandler {
         String garbage = "\"";
         String str2 = lesson.cleanString(str, garbage);
 
-
         String patternTo = ",";
         String[] parts = lesson.splitString(str2, patternTo);
 
-
         List<String> str3 = lesson.fromArrayToString(parts);
-//        for (String s : str3) {
-//            System.out.println(s);
-//        }
 
         String jsonStringWithZap9ta9 = lesson.fromStringToJson2(str3);
         int sizeOfLastStr = jsonStringWithZap9ta9.length();
         String jsonString = jsonStringWithZap9ta9.substring(0, sizeOfLastStr - 2) + jsonStringWithZap9ta9.substring(sizeOfLastStr - 1, sizeOfLastStr);
         System.out.println(jsonString);
 
-
         FileWriter jFile = lesson.write(jsonFile, jsonString);
-//        System.out.println(jFile);
 
         DatabaseHandler dataH = new DatabaseHandler();
 

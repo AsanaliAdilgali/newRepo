@@ -21,24 +21,19 @@ public class Lesson {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 builder.append(line);
-                return line;
             }
             String str = builder.toString();
             return str;
-
         }
     }
 
     public String cleanString(String dirtyString, String anyGarbage) {
-        String cleanString = null;
-        cleanString = dirtyString.replaceAll("\"", "");
-        return cleanString;
+        return dirtyString.replaceAll("\"", "");
 
     }
 
     public String[] splitString(String strForSplit, String patternToSplit) {
-        String[] splitedString = strForSplit.split(patternToSplit);
-        return splitedString;
+        return strForSplit.split(patternToSplit);
     }
 
     public List<String> fromArrayToString(String[] splitedString) {
@@ -52,7 +47,6 @@ public class Lesson {
     public String fromStringToJson2(List<String> strings) {
         List<List<String>> listOfStringLists = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("{\"reports\": [");
         stringBuilder.append("[");
         for (int i = 0; i < strings.size(); i++) {
             if (strings.get(i).matches("\\d{1,2}")) {
@@ -73,10 +67,8 @@ public class Lesson {
                 stringBuilder.append("\"date\": \"" + strings.get(i) + "\"},");
             }
         }
-//        stringBuilder.append("]}");
         stringBuilder.append("]");
         return stringBuilder.toString();
-
     }
 
     public FileWriter write(String filePath, String data) throws IOException {
@@ -88,16 +80,7 @@ public class Lesson {
         writer.write(data);
         writer.flush();
         writer.close();
-
-//        FileReader fr = new FileReader(file);
-//        char[] a = new char[1000];
-//        fr.read(a);
-//
-//        for (char c : a)
-//            System.out.println(c);
-//        fr.close();
         return writer;
-
     }
 
     public List<ReportDto> parseJson(String path) throws IOException {
@@ -112,16 +95,6 @@ public class Lesson {
             ObjectMapper objectMapper = new ObjectMapper();
             return Arrays.asList(objectMapper.readValue(new File(path), ReportDto[].class));
         }
-
-
-
-//Создание метод
-//1. идентификатор доступа public private protected
-//2. что возвращает 1) ничего то есть void 2) объект либо примитив (например String)
-//3. название метода с маленькой буквы
-
     }
-
-
 }
 
