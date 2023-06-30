@@ -1,12 +1,22 @@
 package parseFile;
 
-import java.io.FileReader;
+import SqlSample.Configs;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import parseFile.Lesson;
+import parseFile.ReportDto;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
-public class Main {
+public class Main extends DatabaseHandler {
+
+
+
 
     public static void main(String[] args) throws IOException {
         String fileWithData = "C:\\Users\\w2\\Downloads\\text_for_parse.txt";
@@ -23,15 +33,38 @@ public class Main {
 
 
         List<String> str3 = lesson.fromArrayToString(parts);
-        //System.out.println(str3);
+//        for (String s : str3) {
+//            System.out.println(s);
+//        }
+
         String jsonStringWithZap9ta9 = lesson.fromStringToJson2(str3);
         int sizeOfLastStr = jsonStringWithZap9ta9.length();
-        String jsonString = jsonStringWithZap9ta9.substring(0, sizeOfLastStr - 3) + jsonStringWithZap9ta9.substring(sizeOfLastStr - 2, sizeOfLastStr - 1) + "}";
-        // System.out.println(jsonString);
+        String jsonString = jsonStringWithZap9ta9.substring(0, sizeOfLastStr - 2) + jsonStringWithZap9ta9.substring(sizeOfLastStr - 1, sizeOfLastStr);
+        System.out.println(jsonString);
 
 
         FileWriter jFile = lesson.write(jsonFile, jsonString);
-        System.out.println(jFile);
+//        System.out.println(jFile);
 
+        DatabaseHandler dataH = new DatabaseHandler();
+
+        List<ReportDto> reportDtos = lesson.parseJson(jsonFile);
+        for (ReportDto r : reportDtos) {
+            dataH.saveData(String.valueOf(r.number), String.valueOf(r.id), r.repCode, r.repName, r.repType, r.repFileName, r.repFileType, r.date);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
