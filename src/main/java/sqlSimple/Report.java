@@ -1,4 +1,4 @@
-package SqlSample;
+package sqlSimple;
 
 public class Report {
     private String number;

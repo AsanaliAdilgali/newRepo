@@ -1,15 +1,7 @@
 package parseFile;
 
-import SqlSample.Configs;
-import SqlSample.Const;
-import com.fasterxml.jackson.databind.JsonNode;
-
-import javax.jws.soap.SOAPBinding;
-import java.io.File;
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.io.FileWriter;
 import java.sql.*;
 
 

@@ -1,16 +1,7 @@
 package parseFile;
 
-import SqlSample.Configs;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import parseFile.Lesson;
-import parseFile.ReportDto;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main extends DatabaseHandler {

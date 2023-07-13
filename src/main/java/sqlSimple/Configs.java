@@ -1,4 +1,4 @@
-package SqlSample;
+package sqlSimple;
 
 public class Configs {
     protected String dbHost = "localhost";

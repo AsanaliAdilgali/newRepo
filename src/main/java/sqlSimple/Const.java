@@ -1,4 +1,4 @@
-package SqlSample;
+package sqlSimple;
 
 public class Const {
     public static final String REPORT_TABLE = "reports";
