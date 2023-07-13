@@ -1,0 +1,244 @@
+Index: src/main/java/parseFile/DatabaseHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/parseFile/DatabaseHandler.java b/src/main/java/parseFile/DatabaseHandler.java
+--- a/src/main/java/parseFile/DatabaseHandler.java	(revision ee5ef1fc5725f9d0f257d698a3b3e60feceeb0c1)
++++ b/src/main/java/parseFile/DatabaseHandler.java	(revision 51f09f99729e29a80c25737d9ff01d5e99380c55)
+@@ -13,47 +13,38 @@
+ import java.sql.*;
+ 
+ 
+-public class DatabaseHandler extends Lesson {
+-
++public class DatabaseHandler {
+ 
+-        public Connection getDbConnection () throws ClassNotFoundException, SQLException {
+-            Connection dbConnection;
+-            Class.forName("org.postgresql.Driver");
+-            Connection connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres", "asanka56");
+-            return connection;
+-        }
++    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
++        Connection dbConnection;
++        Class.forName("org.postgresql.Driver");
++        Connection connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/postgres", "postgres", "asanka56");
++        return connection;
++    }
+ 
+-      /*  String connectionString = "jdbc:postgresql://" + dbHost + ":"
+-                + dbPort + "/" + dbName;
+-        Class.forName("com.postgresql.jdbc.Driver");
+-
+-        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+-*/
+-
+-        public void saveData (String number, String id, String repCode, String repName, String repType,
+-                String repFileName, String repFileType, String date){
+-            String insert = "INSERT INTO reports(report_number, id, RepCode, RepName, RepType, RepFileName, RepFileType, report_date)" +
+-                    "VALUES(?,?,?,?,?,?,?,?)";
++    public void saveData(String number, String id, String repCode, String repName, String repType,
++                         String repFileName, String repFileType, String date) {
++        String insert = "INSERT INTO reports(report_number, id, RepCode, RepName, RepType, RepFileName, RepFileType, report_date)" +
++                "VALUES(?,?,?,?,?,?,?,?)";
+ 
+-
+-            try {
+-                PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+-                prSt.setString(1, number);
+-                prSt.setString(2, id);
+-                prSt.setString(3, repCode);
+-                prSt.setString(4, repName);
+-                prSt.setString(5, repType);
+-                prSt.setString(6, repFileName);
+-                prSt.setString(7, repFileType);
+-                prSt.setString(8, date);
+-                System.out.println("Success");
+-                prSt.executeUpdate();
+-            } catch (SQLException | ClassNotFoundException throwables) {
+-                throwables.printStackTrace();
+-                System.out.println("Error");
+-            }
+-        }
+-    }
++        try {
++            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
++            prSt.setString(1, number);
++            prSt.setString(2, id);
++            prSt.setString(3, repCode);
++            prSt.setString(4, repName);
++            prSt.setString(5, repType);
++            prSt.setString(6, repFileName);
++            prSt.setString(7, repFileType);
++            prSt.setString(8, date);
++            System.out.println("Success");
++            prSt.executeUpdate();
++        } catch (SQLException | ClassNotFoundException throwables) {
++            throwables.printStackTrace();
++            System.out.println("Error");
++        }
++    }
++}
+ 
+ 
+ 
+Index: src/main/java/parseFile/Lesson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/parseFile/Lesson.java b/src/main/java/parseFile/Lesson.java
+--- a/src/main/java/parseFile/Lesson.java	(revision ee5ef1fc5725f9d0f257d698a3b3e60feceeb0c1)
++++ b/src/main/java/parseFile/Lesson.java	(revision 51f09f99729e29a80c25737d9ff01d5e99380c55)
+@@ -21,24 +21,19 @@
+             String line = null;
+             while ((line = reader.readLine()) != null) {
+                 builder.append(line);
+-                return line;
+             }
+             String str = builder.toString();
+             return str;
+-
+         }
+     }
+ 
+     public String cleanString(String dirtyString, String anyGarbage) {
+-        String cleanString = null;
+-        cleanString = dirtyString.replaceAll("\"", "");
+-        return cleanString;
++        return dirtyString.replaceAll("\"", "");
+ 
+     }
+ 
+     public String[] splitString(String strForSplit, String patternToSplit) {
+-        String[] splitedString = strForSplit.split(patternToSplit);
+-        return splitedString;
++        return strForSplit.split(patternToSplit);
+     }
+ 
+     public List<String> fromArrayToString(String[] splitedString) {
+@@ -52,7 +47,6 @@
+     public String fromStringToJson2(List<String> strings) {
+         List<List<String>> listOfStringLists = new ArrayList<>();
+         StringBuilder stringBuilder = new StringBuilder();
+-//        stringBuilder.append("{\"reports\": [");
+         stringBuilder.append("[");
+         for (int i = 0; i < strings.size(); i++) {
+             if (strings.get(i).matches("\\d{1,2}")) {
+@@ -73,10 +67,8 @@
+                 stringBuilder.append("\"date\": \"" + strings.get(i) + "\"},");
+             }
+         }
+-//        stringBuilder.append("]}");
+         stringBuilder.append("]");
+         return stringBuilder.toString();
+-
+     }
+ 
+     public FileWriter write(String filePath, String data) throws IOException {
+@@ -88,16 +80,7 @@
+         writer.write(data);
+         writer.flush();
+         writer.close();
+-
+-//        FileReader fr = new FileReader(file);
+-//        char[] a = new char[1000];
+-//        fr.read(a);
+-//
+-//        for (char c : a)
+-//            System.out.println(c);
+-//        fr.close();
+         return writer;
+-
+     }
+ 
+     public List<ReportDto> parseJson(String path) throws IOException {
+@@ -112,16 +95,6 @@
+             ObjectMapper objectMapper = new ObjectMapper();
+             return Arrays.asList(objectMapper.readValue(new File(path), ReportDto[].class));
+         }
+-
+-
+-
+-//Создание метод
+-//1. идентификатор доступа public private protected
+-//2. что возвращает 1) ничего то есть void 2) объект либо примитив (например String)
+-//3. название метода с маленькой буквы
+-
+     }
+-
+-
+ }
+ 
+Index: src/main/java/parseFile/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/parseFile/Main.java b/src/main/java/parseFile/Main.java
+--- a/src/main/java/parseFile/Main.java	(revision ee5ef1fc5725f9d0f257d698a3b3e60feceeb0c1)
++++ b/src/main/java/parseFile/Main.java	(revision 51f09f99729e29a80c25737d9ff01d5e99380c55)
+@@ -15,9 +15,6 @@
+ 
+ public class Main extends DatabaseHandler {
+ 
+-
+-
+-
+     public static void main(String[] args) throws IOException {
+         String fileWithData = "C:\\Users\\w2\\Downloads\\text_for_parse.txt";
+         String jsonFile = "C:\\Users\\w2\\Downloads\\dataFromFile2.json";
+@@ -27,24 +24,17 @@
+         String garbage = "\"";
+         String str2 = lesson.cleanString(str, garbage);
+ 
+-
+         String patternTo = ",";
+         String[] parts = lesson.splitString(str2, patternTo);
+ 
+-
+         List<String> str3 = lesson.fromArrayToString(parts);
+-//        for (String s : str3) {
+-//            System.out.println(s);
+-//        }
+ 
+         String jsonStringWithZap9ta9 = lesson.fromStringToJson2(str3);
+         int sizeOfLastStr = jsonStringWithZap9ta9.length();
+         String jsonString = jsonStringWithZap9ta9.substring(0, sizeOfLastStr - 2) + jsonStringWithZap9ta9.substring(sizeOfLastStr - 1, sizeOfLastStr);
+         System.out.println(jsonString);
+ 
+-
+         FileWriter jFile = lesson.write(jsonFile, jsonString);
+-//        System.out.println(jFile);
+ 
+         DatabaseHandler dataH = new DatabaseHandler();
+ 
+Index: src/main/java/parseFile/ReportDto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/parseFile/ReportDto.java b/src/main/java/parseFile/ReportDto.java
+--- a/src/main/java/parseFile/ReportDto.java	(revision ee5ef1fc5725f9d0f257d698a3b3e60feceeb0c1)
++++ b/src/main/java/parseFile/ReportDto.java	(revision 51f09f99729e29a80c25737d9ff01d5e99380c55)
+@@ -9,17 +9,6 @@
+     public String repFileName;
+     public String repFileType;
+     public String date;
+-
+-//        public ReportDto(){}
+-//        public ReportDto(int number, int id, String rep_code, String rep_name, String rep_type, String rep_file_name, String rep_file_type, int date){
+-//            this.number = number;
+-//            this.id = id;
+-//            this.rep_code = rep_code;
+-//            this.rep_name = rep_name;
+-//            this.rep_type = rep_type;
+-//            this.rep_file_name = rep_file_name;
+-//            this.rep_file_type = rep_file_type;
+-//            this.date = date;
+-//        }
+-    }
++}
+ 
++
