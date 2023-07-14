@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Solution {
     public static void main(String[] args) {
-        int arr1[] = {1,2,3};
+        int arr1[] = {9,8,10};
 
-        int arr2[] = {2,5,6};
+        int arr2[] = {6,8,7};
 
         int mas1 = arr1.length;
         int mas2 = arr2.length;
